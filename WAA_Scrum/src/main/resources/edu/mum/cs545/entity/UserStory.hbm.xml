@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 10, 2015 8:59:05 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="mumscrum" name="edu.mum.cs545.entity.UserStory" optimistic-lock="version" table="UserStory">
+    <id name="id" type="java.lang.Integer">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="edu.mum.cs545.entity.Employee" fetch="select" name="employeeByDeveloperId">
+      <column name="developerId"/>
+    </many-to-one>
+    <many-to-one class="edu.mum.cs545.entity.Employee" fetch="select" name="employeeByTestId">
+      <column name="testId"/>
+    </many-to-one>
+    <many-to-one class="edu.mum.cs545.entity.Employee" fetch="select" name="employeeByOwnerId">
+      <column name="ownerId" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="edu.mum.cs545.entity.Product" fetch="select" name="product">
+      <column name="productId" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="edu.mum.cs545.entity.Sprint" fetch="select" name="sprint">
+      <column name="sprintId"/>
+    </many-to-one>
+    <property name="name" type="string">
+      <column length="25" name="name"/>
+    </property>
+    <property name="priority" type="string">
+      <column length="25" name="priority"/>
+    </property>
+    <property name="startDate" type="timestamp">
+      <column length="19" name="startDate"/>
+    </property>
+    <property name="dueDate" type="timestamp">
+      <column length="19" name="dueDate"/>
+    </property>
+    <property name="estimateDevEffort" type="java.lang.Integer">
+      <column name="estimateDevEffort"/>
+    </property>
+    <property name="estimateTestEffort" type="java.lang.Integer">
+      <column name="estimateTestEffort"/>
+    </property>
+    <property name="description" type="string">
+      <column length="65535" name="description"/>
+    </property>
+    <property name="releaseId" type="java.lang.Integer">
+      <column name="releaseId"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="worklogs" table="Worklog">
+      <key>
+        <column name="userStoryId" not-null="true"/>
+      </key>
+      <one-to-many class="edu.mum.cs545.entity.Worklog"/>
+    </set>
+  </class>
+</hibernate-mapping>

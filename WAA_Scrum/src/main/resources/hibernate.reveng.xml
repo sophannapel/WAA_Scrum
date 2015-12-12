@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="mumscrum"/>
+  <table-filter match-name="Employee"/>
+  <table-filter match-name="Product"/>
+  <table-filter match-name="status"/>
+  <table-filter match-name="Worklog"/>
+  <table-filter match-name="ReleaseBacklog"/>
+  <table-filter match-name="role"/>
+  <table-filter match-name="Sprint"/>
+  <table-filter match-name="UserStory"/>
+</hibernate-reverse-engineering>
