@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"     
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>IGNORED</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+
+        <h:form>
+            <h:panelGrid id="grid" columns="3" cellpadding="5">
+
+                <p:outputLabel for="name" value="#{msgs.productName}: " />
+                <p:inputText id="name" value="#{productBean.name}" />
+                <p:message for="name" />
+
+                <p:outputLabel for="startDate" value="#{msgs.productStartDate}: " />
+                <p:calendar id="startDate" value="#{productBean.startDate}" />
+                <p:message for="startDate" />
+                
+                <p:outputLabel for="dueDate" value="#{msgs.productDueDate}: " />
+                <p:calendar id="dueDate" value="#{productBean.dueDate}" />
+                <p:message for="dueDate" />
+                
+                <p:outputLabel for="description" value="#{msgs.productDescription}" />
+                <p:inputTextarea id="description" value="#{productBean.description}" />
+                <p:message for="description" />
+                
+                
+
+            </h:panelGrid>
+            <p:commandButton value="Submit" action="#{productBean.createProduct}" update="grid" />
+        </h:form>
+
+    </h:body>
+</html>
