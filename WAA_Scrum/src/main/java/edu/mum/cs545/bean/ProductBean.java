@@ -4,7 +4,7 @@ import edu.mum.cs545.entity.Employee;
 import edu.mum.cs545.entity.Status;
 import java.io.Serializable;
 import java.util.Date;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
@@ -14,41 +14,41 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  * @author pelsophanna
  */
-
-//@Named("product")
+@Named("productBean")
 //@SessionScoped
+@RequestScoped
 public class ProductBean implements Serializable {
 
-    private Employee employee;
-    private Status status;
-    
+    private Employee employeeId;
+    private Status statusId;
+
     @NotEmpty(message = "{productbean_name_notempty}")
     private String name;
-    
+
     @NotNull(message = "{productbean_startdate_notnull}")
     @Future(message = "{productbean_startdate_future}")
     private Date startDate;
-    
+
     @NotNull(message = "{productbean_duedate_notnull}")
     @Future(message = "{productbean_duedate_future}")
     private Date dueDate;
-    
+
     private String description;
 
-    public Employee getEmployee() {
-        return employee;
+    public Employee getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployeeId(Employee employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public Status getStatus() {
-        return status;
+    public Status getStatusId() {
+        return statusId;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatusId(Status statusId) {
+        this.statusId = statusId;
     }
 
     public String getName() {

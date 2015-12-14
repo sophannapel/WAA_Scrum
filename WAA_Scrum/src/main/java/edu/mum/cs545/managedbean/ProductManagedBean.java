@@ -13,8 +13,7 @@ import edu.mum.cs545.service.ProductService;
 import edu.mum.cs545.service.StatusService;
 import java.io.Serializable;
 import java.util.List;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedProperty;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -28,25 +27,25 @@ import org.dozer.Mapper;
  * @author pelsophanna
  */
 @Named("productManagedBean")
-@SessionScoped
+//@SessionScoped
+@RequestScoped
 public class ProductManagedBean implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     @Inject
-//    @ManagedProperty("#{ProductBean}")
     private ProductBean productBean;
-    
+
     @NotNull
     @Column(nullable = false)
     private Integer statusId;
-    
+
     @Inject
     transient private ProductService productService;
-    
+
     @Inject
     transient private StatusService statusService;
-    
+
     private SelectItem[] statusOption;
 
     public StatusService getStatusService() {
@@ -60,7 +59,7 @@ public class ProductManagedBean implements Serializable {
     public SelectItem[] getStatusOption() {
         List<Status> list = statusService.statusList();
         statusOption = new SelectItem[list.size()];
-        for (int i=0; i<list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             statusOption[i] = new SelectItem(list.get(i).getId(), list.get(i).getName());
         }
         return statusOption;
@@ -85,25 +84,21 @@ public class ProductManagedBean implements Serializable {
     public void setProductService(ProductService productService) {
         this.productService = productService;
     }
-    
+
     public Integer getStatusId() {
         return statusId;
     }
-    
+
     public void setStatusId(Integer statusId) {
         this.statusId = statusId;
     }
-    
-    public String createProduct() {
-        
-        //Need to create employee object, status for this product
 
+    public String createProduct() {
         Mapper mapper = new DozerBeanMapper();
-        productBean.setStatus(new Status(statusId));
-        productBean.setEmployee(new Employee(2));
-        
+        productBean.setStatusId(new Status(statusId));
+        productBean.setEmployeeId(new Employee(2));
         Product product = mapper.map(productBean, Product.class);
         productService.createProduct(product);
         return "productForm";
-    }    
+    }
 }

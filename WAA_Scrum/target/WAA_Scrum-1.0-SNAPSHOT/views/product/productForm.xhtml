@@ -16,7 +16,7 @@ and open the template in the editor.
     <h:body>
 
         <h:form>
-            <h:panelGrid id="grid" columns="3" cellpadding="5">
+            <h:panelGrid id="grid" columns="3" cellpadding="5" cellspacing="5">
 
                 <p:outputLabel for="name" value="#{msgs.productName}: " />
                 <p:inputText id="name" value="#{productManagedBean.productBean.name}" />
@@ -32,7 +32,7 @@ and open the template in the editor.
                 
                 <p:outputLabel for="status" value="#{msgs.productStatus}" />
                 <p:selectOneMenu id="status" value="#{productManagedBean.statusId}" >
-                    <f:selectItems value="#{productBean.statusOption}" />
+                    <f:selectItems value="#{productManagedBean.statusOption}" />
                 </p:selectOneMenu>
                 <p:message for="status" />
                 
@@ -43,7 +43,7 @@ and open the template in the editor.
                 
 
             </h:panelGrid>
-            <p:commandButton value="Submit" action="#{productBean.createProduct}" update="grid" />
+            <p:commandButton value="Submit" action="#{productManagedBean.createProduct}" update="grid" />
         </h:form>
 
     </h:body>

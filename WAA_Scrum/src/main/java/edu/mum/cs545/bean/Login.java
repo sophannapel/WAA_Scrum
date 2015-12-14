@@ -1,4 +1,4 @@
-package com.jupiter.mumscrum.bean;
+package edu.mum.cs545.bean;
 
 import org.hibernate.validator.constraints.NotEmpty;
 

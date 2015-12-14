@@ -40,6 +40,7 @@
 /Users/pelsophanna/NetBeansProjects/WAAWorkspace/Project/WAA_Scrum/src/main/java/edu/mum/cs545/entity/Product.java
 /Users/pelsophanna/NetBeansProjects/WAAWorkspace/Project/WAA_Scrum/src/main/java/edu/mum/cs545/dao/ReleaseBacklogDAO.java
 /Users/pelsophanna/NetBeansProjects/WAAWorkspace/Project/WAA_Scrum/src/main/java/edu/mum/cs545/service/RoleService.java
+/Users/pelsophanna/NetBeansProjects/WAAWorkspace/Project/WAA_Scrum/src/main/java/edu/mum/cs545/managedbean/ProductManagedBean.java
 /Users/pelsophanna/NetBeansProjects/WAAWorkspace/Project/WAA_Scrum/src/main/java/edu/mum/cs545/service/UserStoryService.java
 /Users/pelsophanna/NetBeansProjects/WAAWorkspace/Project/WAA_Scrum/src/main/java/edu/mum/cs545/service/ReleaseBacklogService.java
 /Users/pelsophanna/NetBeansProjects/WAAWorkspace/Project/WAA_Scrum/src/main/java/edu/mum/cs545/dao/ProductDAO.java
