@@ -9,17 +9,18 @@ import javax.transaction.Transactional;
 
 public class StatusDAOImpl implements StatusDAO {
 
-	@PersistenceContext
-	private EntityManager entityManager;	
-	
-	@Override
-	@Transactional
-	public List<Status> statusList() {
-		List<Status> list = entityManager.createQuery("SELECT s FROM Status s").getResultList();
-		if(list.isEmpty())
-			return null;
-		else 
-			return list;
-	}
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    @Transactional
+    public List<Status> statusList() {
+        List<Status> list = entityManager.createQuery("SELECT s FROM Status s").getResultList();
+        if (list.isEmpty()) {
+            return null;
+        } else {
+            return list;
+        }
+    }
 
 }

@@ -1,6 +1,6 @@
 package edu.mum.cs545.service;
 
-import com.jupiter.mumscrum.entity.Coordinates;
+import edu.mum.cs545.entity.Coordinates;
 import edu.mum.cs545.entity.Sprint;
 import java.util.List;
 

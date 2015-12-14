@@ -1,7 +1,7 @@
 package edu.mum.cs545.service.impl;
 
-import com.jupiter.mumscrum.entity.Coordinates;
 import edu.mum.cs545.dao.SprintDAO;
+import edu.mum.cs545.entity.Coordinates;
 import edu.mum.cs545.entity.Sprint;
 import edu.mum.cs545.service.SprintService;
 import java.util.List;

@@ -5,12 +5,17 @@ import edu.mum.cs545.dao.impl.ProductDAOImpl;
 import edu.mum.cs545.entity.Product;
 import edu.mum.cs545.service.ProductService;
 import java.util.List;
-import javax.inject.Inject;
+import javax.ejb.EJB;
+
+
 
 public class ProductServiceImpl implements ProductService {
 
-//    @Inject
-    private ProductDAO productDao = new ProductDAOImpl();
+////    @Inject
+//    private ProductDAO productDao = new ProductDAOImpl();
+    
+    @EJB
+    private ProductDAO productDao;
 
     @Override
     public List<Product> listProduct() {

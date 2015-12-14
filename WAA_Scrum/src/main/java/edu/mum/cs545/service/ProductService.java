@@ -3,6 +3,7 @@ package edu.mum.cs545.service;
 import edu.mum.cs545.entity.Product;
 import java.util.List;
 
+
 public interface ProductService {
 
     public List<Product> listProduct();

@@ -7,13 +7,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class StatusServiceImpl implements StatusService {
-		
-	@Inject
-	private StatusDAO statusDao;
-	
-	@Override
-	public List<Status> statusList() {
-		return statusDao.statusList();
-	}
+
+    @Inject
+    private StatusDAO statusDao;
+
+    @Override
+    public List<Status> statusList() {
+        return statusDao.statusList();
+    }
 
 }

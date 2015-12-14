@@ -3,6 +3,7 @@ package edu.mum.cs545.dao.impl;
 import edu.mum.cs545.dao.ProductDAO;
 import edu.mum.cs545.entity.Product;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -10,9 +11,10 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Stateless
 public class ProductDAOImpl implements ProductDAO {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "scrum")
     private EntityManager entityManager;
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductDAOImpl.class);
 
@@ -30,9 +32,12 @@ public class ProductDAOImpl implements ProductDAO {
     @Transactional
     public void createProduct(Product product) {
         System.out.println("--------" + product.toString());
-//        LOGGER.info("Create new product, product = " + product);
-//        entityManager.persist(product);
-//        entityManager.flush();
+
+        System.out.println("---" + product.getDescription() + product.getName() + product.getDueDate() + product.getStartDate());
+
+        LOGGER.info("Create new product, product = " + product);
+        entityManager.persist(product);
+        entityManager.flush();
     }
 
     @Override
@@ -72,7 +77,7 @@ public class ProductDAOImpl implements ProductDAO {
         query.setParameter("dueDate", product.getDueDate());
         query.setParameter("name", product.getName());
         query.setParameter("startDate", product.getStartDate());
-        query.setParameter("status", product.getStatus());
+//        query.setParameter("status", product.getStatus());
         query.setParameter("id", product.getId());
         query.executeUpdate();
     }
