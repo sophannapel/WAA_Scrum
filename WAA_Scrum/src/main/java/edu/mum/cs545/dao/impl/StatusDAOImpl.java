@@ -3,13 +3,15 @@ package edu.mum.cs545.dao.impl;
 import edu.mum.cs545.dao.StatusDAO;
 import edu.mum.cs545.entity.Status;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+@Stateless
 public class StatusDAOImpl implements StatusDAO {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "scrum")
     private EntityManager entityManager;
 
     @Override

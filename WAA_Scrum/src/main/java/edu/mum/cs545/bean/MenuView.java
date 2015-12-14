@@ -5,7 +5,6 @@
  */
 package edu.mum.cs545.bean;
 
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;

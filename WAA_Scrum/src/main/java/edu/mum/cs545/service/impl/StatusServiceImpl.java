@@ -4,11 +4,12 @@ import edu.mum.cs545.dao.StatusDAO;
 import edu.mum.cs545.entity.Status;
 import edu.mum.cs545.service.StatusService;
 import java.util.List;
-import javax.inject.Inject;
+import javax.ejb.EJB;
 
 public class StatusServiceImpl implements StatusService {
 
-    @Inject
+//    @Inject
+    @EJB
     private StatusDAO statusDao;
 
     @Override

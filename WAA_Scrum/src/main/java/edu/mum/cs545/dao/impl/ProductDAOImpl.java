@@ -31,10 +31,6 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     @Transactional
     public void createProduct(Product product) {
-        System.out.println("--------" + product.toString());
-
-        System.out.println("---" + product.getDescription() + product.getName() + product.getDueDate() + product.getStartDate());
-
         LOGGER.info("Create new product, product = " + product);
         entityManager.persist(product);
         entityManager.flush();
