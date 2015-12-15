@@ -9,7 +9,11 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>#{msgs.windowTitle}</title>
+                <title>
+                    <ui:insert name="title" >
+                        #{msgs.windowTitle}
+                    </ui:insert>
+                </title>
                 <h:outputStylesheet library="css" name="style.css"  />
             </f:facet>
         </h:head>
@@ -18,16 +22,20 @@
 
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="100" resizable="false">                   
-                    <ui:insert name="header">
-                        <ui:include src="/templates/header.xhtml"/>
-                    </ui:insert>           
+                <p:layoutUnit position="north" size="50" resizable="false">  
+                    <div class="headerDiv">                    
+                        <ui:insert name="header">                      
+                            <ui:include src="/templates/header.xhtml"/>
+                        </ui:insert>        
+                    </div>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="south" size="80">
-                    <ui:insert name="footer">
-                        <ui:include src="/templates/footer.xhtml"/>
-                    </ui:insert>
+                <p:layoutUnit position="south" size="30">
+                    <div class="footerDiv">
+                        <ui:insert name="footer">
+                            <ui:include src="/templates/footer.xhtml"/>
+                        </ui:insert>
+                    </div>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="west" size="233" header="Menu" collapsible="true">
@@ -37,16 +45,20 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-                    <ui:insert name="content">
+                    <div class="contentDiv">
+                        <div class="formTitle">
+                            <ui:insert name="formTitle">
 
-                    </ui:insert>
+                            </ui:insert>
+                        </div>
+
+                        <ui:insert name="content">
+
+                        </ui:insert>
+                    </div>
                 </p:layoutUnit>
-
             </p:layout>
-
-
         </h:body>
-
     </f:view>
 </html>
 

@@ -8,17 +8,30 @@ and open the template in the editor.
     Author     : pelsophanna
 */
 
-/*.ui-layout-pane-north {
-    background-image: url("/resources/images/background.png");
-    color: red;
-    border: 0px;
-    font-size: 30px;
-}*/
-
-.ui-selectonemenu{
-    width: 100% !important;
+.ui-selectonemenu {
+    width: 80% !important;
 }
-.ui-selectonemenu-label{
-    width: 100% !important;
-}  
+
+.formTitle {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.contentDiv {
+    margin: auto;
+    position: relative;
+    width: 100%;
+}
+
+.headerDiv {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.footerDiv {
+    text-align: right;
+    font-size: 10px;
+}
 

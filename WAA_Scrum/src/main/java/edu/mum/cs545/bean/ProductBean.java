@@ -15,13 +15,13 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author pelsophanna
  */
 @Named("productBean")
-//@SessionScoped
 @RequestScoped
 public class ProductBean implements Serializable {
 
     private Employee employeeId;
     private Status statusId;
 
+    @NotNull(message = "{productbean_name_notempty}")
     @NotEmpty(message = "{productbean_name_notempty}")
     private String name;
 

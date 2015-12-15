@@ -27,7 +27,6 @@ import org.dozer.Mapper;
  * @author pelsophanna
  */
 @Named("productManagedBean")
-//@SessionScoped
 @RequestScoped
 public class ProductManagedBean implements Serializable {
 

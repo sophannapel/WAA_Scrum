@@ -31,6 +31,7 @@ public class MenuView implements Serializable {
 
         //First submenu
         DefaultSubMenu firstSubmenu = new DefaultSubMenu("Product");
+        
 
         DefaultMenuItem item = new DefaultMenuItem("View");
         item.setUrl("http://www.primefaces.org");
@@ -38,7 +39,7 @@ public class MenuView implements Serializable {
         firstSubmenu.addElement(item);
         
         item = new DefaultMenuItem("Create");
-        item.setUrl("http://www.primefaces.org");
+        item.setUrl("/views/product/productForm.faces");
         item.setIcon("ui-icon-plus");
         firstSubmenu.addElement(item);
         
