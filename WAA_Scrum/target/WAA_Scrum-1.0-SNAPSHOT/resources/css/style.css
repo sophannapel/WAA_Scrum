@@ -12,6 +12,11 @@ and open the template in the editor.
     width: 80% !important;
 }
 
+/*Menu css*/
+.ui-menu {
+    width: 250px !important;
+}
+
 .formTitle {
     text-align: center;
     font-size: 20px;

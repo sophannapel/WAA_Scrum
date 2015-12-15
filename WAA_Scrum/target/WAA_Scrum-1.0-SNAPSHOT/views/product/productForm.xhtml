@@ -20,12 +20,14 @@ and open the template in the editor.
             </ui:define>
 
             <ui:define name="formTitle">
-                    #{msgs.productFormTitle}
-                </ui:define>
-            
+                #{msgs.productFormTitle}
+            </ui:define>
+
             <ui:define name="content">
-                
+
                 <h:form>
+                    <p:growl id="msgs" showDetail="true"/>
+
                     <h:panelGrid id="grid" columns="3" cellpadding="5" cellspacing="5">
 
                         <p:outputLabel for="name" value="#{msgs.productName}: " />
@@ -49,12 +51,12 @@ and open the template in the editor.
                         <p:outputLabel for="description" value="#{msgs.productDescription}" />
                         <p:inputTextarea id="description" value="#{productManagedBean.productBean.description}" rows="3"/>
                         <p:message for="description" />
-                        
+
                         <h:panelGroup />
                         <p:commandButton value="Submit" action="#{productManagedBean.createProduct}" update="grid" />
 
                     </h:panelGrid>
-                    
+
                 </h:form>
             </ui:define>
         </ui:composition>

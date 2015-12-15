@@ -13,7 +13,10 @@ import edu.mum.cs545.service.ProductService;
 import edu.mum.cs545.service.StatusService;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,6 +24,7 @@ import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -46,7 +50,23 @@ public class ProductManagedBean implements Serializable {
     transient private StatusService statusService;
 
     private SelectItem[] statusOption;
+    
+    private List<Product> productList;
+    
+    /* this method is needed for sorting product list on productList page */
+    @PostConstruct
+    public void init() {
+        productList = productService.listProduct();
+    }
 
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
+   
     public StatusService getStatusService() {
         return statusService;
     }
@@ -98,6 +118,15 @@ public class ProductManagedBean implements Serializable {
         productBean.setEmployeeId(new Employee(2));
         Product product = mapper.map(productBean, Product.class);
         productService.createProduct(product);
-        return "productForm";
+        FacesMessage msg = new FacesMessage("New Product Backlog Added", product.getId().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        return "productList";
     }
+    
+    public void editProduct(RowEditEvent event) {
+        System.out.println("you are edit product");
+        FacesMessage msg = new FacesMessage("Product Backlog Edited", ((Product)event.getObject()).getId().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
 }

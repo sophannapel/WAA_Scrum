@@ -6,6 +6,7 @@
 package edu.mum.cs545.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -177,6 +178,14 @@ public class Product implements Serializable {
     @Override
     public String toString() {
         return "edu.mum.cs545.entity.Product[ id=" + id + " ]";
+    }
+
+    public String formatStartDate() {
+        return new SimpleDateFormat("yyyy-MM-dd").format(startDate);
+    }
+
+    public String formatDueDate() {
+        return new SimpleDateFormat("yyyy-MM-dd").format(dueDate);
     }
 
 }

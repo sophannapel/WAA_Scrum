@@ -30,24 +30,18 @@ public class MenuView implements Serializable {
         model = new DefaultMenuModel();
 
         //First submenu
-        DefaultSubMenu firstSubmenu = new DefaultSubMenu("Product");
+        DefaultSubMenu firstSubmenu = new DefaultSubMenu("Product Management");
         
-
-        DefaultMenuItem item = new DefaultMenuItem("View");
-        item.setUrl("http://www.primefaces.org");
+        DefaultMenuItem item = new DefaultMenuItem("List of Products");
+        item.setUrl("/views/product/productList.faces");
         item.setIcon("ui-icon-lightbulb");
         firstSubmenu.addElement(item);
         
-        item = new DefaultMenuItem("Create");
+        item = new DefaultMenuItem("Add New Product");
         item.setUrl("/views/product/productForm.faces");
         item.setIcon("ui-icon-plus");
         firstSubmenu.addElement(item);
         
-        item = new DefaultMenuItem("Update");
-        item.setUrl("http://www.primefaces.org");
-        item.setIcon("ui-icon-pencil");
-        firstSubmenu.addElement(item);
-
         model.addElement(firstSubmenu);
 
         //Second submenu
