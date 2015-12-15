@@ -14,6 +14,7 @@ import edu.mum.cs545.service.StatusService;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -26,11 +27,14 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.primefaces.event.RowEditEvent;
 
+
 /**
  *
  * @author pelsophanna
  */
+
 @Named("productManagedBean")
+//@ConversationScoped
 @RequestScoped
 public class ProductManagedBean implements Serializable {
 
@@ -58,8 +62,9 @@ public class ProductManagedBean implements Serializable {
     public void init() {
         productList = productService.listProduct();
     }
-
+    
     public List<Product> getProductList() {
+        productList = productService.listProduct();
         return productList;
     }
 
