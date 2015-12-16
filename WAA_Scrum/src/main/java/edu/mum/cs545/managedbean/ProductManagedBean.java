@@ -11,12 +11,13 @@ import edu.mum.cs545.entity.Product;
 import edu.mum.cs545.entity.Status;
 import edu.mum.cs545.service.ProductService;
 import edu.mum.cs545.service.StatusService;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
@@ -27,15 +28,14 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.primefaces.event.RowEditEvent;
 
-
 /**
  *
  * @author pelsophanna
  */
-
 @Named("productManagedBean")
-//@ConversationScoped
-@RequestScoped
+@ConversationScoped
+//@RequestScoped
+//@ViewScoped
 public class ProductManagedBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,15 +54,25 @@ public class ProductManagedBean implements Serializable {
     transient private StatusService statusService;
 
     private SelectItem[] statusOption;
-    
+
     private List<Product> productList;
     
+    private int updateProductId;
+
     /* this method is needed for sorting product list on productList page */
     @PostConstruct
     public void init() {
         productList = productService.listProduct();
     }
-    
+
+    public int getUpdateProductId() {
+        return updateProductId;
+    }
+
+    public void setUpdateProductId(int updateProductId) {
+        this.updateProductId = updateProductId;
+    }
+
     public List<Product> getProductList() {
         productList = productService.listProduct();
         return productList;
@@ -71,7 +81,7 @@ public class ProductManagedBean implements Serializable {
     public void setProductList(List<Product> productList) {
         this.productList = productList;
     }
-   
+
     public StatusService getStatusService() {
         return statusService;
     }
@@ -122,16 +132,37 @@ public class ProductManagedBean implements Serializable {
         productBean.setStatusId(new Status(statusId));
         productBean.setEmployeeId(new Employee(2));
         Product product = mapper.map(productBean, Product.class);
-        productService.createProduct(product);
-        FacesMessage msg = new FacesMessage("New Product Backlog Added", product.getId().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        product.setId(updateProductId);
+        
+        if (updateProductId > 0) {
+            productService.updateProduct(product);
+            FacesMessage msg = new FacesMessage("Product Backlog Updated", String.valueOf(updateProductId));
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } else {
+            productService.createProduct(product);
+            FacesMessage msg = new FacesMessage("New Product Backlog Added", product.getId().toString());
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+
         return "productList";
     }
-    
-    public void editProduct(RowEditEvent event) {
-        System.out.println("you are edit product");
-        FacesMessage msg = new FacesMessage("Product Backlog Edited", ((Product)event.getObject()).getId().toString());
+
+    public void editProduct(RowEditEvent event) throws IOException {     
+        FacesMessage msg = new FacesMessage("Product Backlog Edited", ((Product) event.getObject()).getId().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        Product tempProduct = (Product) event.getObject();
+        Mapper mapper = new DozerBeanMapper();
+        productBean = mapper.map(tempProduct, ProductBean.class);
+        statusId = tempProduct.getStatusId().getId();
+        updateProductId = tempProduct.getId();
+
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        NavigationHandler navigationHandler = ctx.getApplication().getNavigationHandler();
+        navigationHandler.handleNavigation(ctx, null, "productForm");
+    }
+
+    public void cancelEditProduct(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Product) event.getObject()).getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
 }

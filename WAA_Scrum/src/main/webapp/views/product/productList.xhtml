@@ -39,7 +39,7 @@ and open the template in the editor.
                         </f:facet>
 
                         <p:ajax event="rowEdit" listener="#{productManagedBean.editProduct}" update=":form:msgs"/>
-                        <p:ajax event="rowEditCancel" update=":form:msgs"/>
+                        <p:ajax event="rowEditCancel" listener="#{productManagedBean.cancelEditProduct}" update=":form:msgs"/>
 
 
                         <p:column headerText="#{msgs.productId}" sortBy="#{product.id}"  filterBy="#{product.id}"  >
@@ -48,10 +48,18 @@ and open the template in the editor.
 
                         <p:column headerText="#{msgs.productName}" sortBy="#{product.name}"  filterBy="#{product.name}" filterMatchMode="contains"  >
                             <h:outputText value="#{product.name}" />
+<!--                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="# {product.name}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="# {product.name}" style="width:100%" label="Year" required="true"/></f:facet>
+                            </p:cellEditor>-->
                         </p:column>
 
                         <p:column headerText="#{msgs.productStartDate}" sortBy="#{product.formatStartDate()}" style="width:105px">
                             <h:outputText value="#{product.formatStartDate()}" />
+<!--                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="# {product.formatStartDate()}" /></f:facet>
+                                <f:facet name="input"><p:calendar value="# {product.formatStartDate()}" /></f:facet>
+                            </p:cellEditor>-->
                         </p:column>
 
                         <p:column headerText="#{msgs.productDueDate}" sortBy="#{product.formatDueDate()}" style="width:105px">
@@ -67,14 +75,15 @@ and open the template in the editor.
                         </p:column>
 
                         <p:column  filterBy="#{product.employeeId.firstname} #{product.employeeId.lastname}"  headerText="#{msgs.productOwner}" sortBy="# {product.employeeId.firstname} # {product.employeeId.lastname}">
-                            
+
                             <h:outputText value="#{product.employeeId.firstname} #{product.employeeId.lastname}" />
                         </p:column>
 
                         <p:column style="width:25px">
                             <p:rowEditor />
+                            <!--<p:commandLink action="# {productManagedBean.editProduct(# {product.id})}" value="Edit" />-->
                         </p:column>
-                        
+
                     </p:dataTable>
                 </h:form>
             </ui:define> 
