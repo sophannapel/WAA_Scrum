@@ -40,3 +40,22 @@ and open the template in the editor.
     font-size: 10px;
 }
 
+.userInformation {
+    text-align: right;
+    font-size: 15px;
+}
+
+.forty-percent {
+     /*width: 80%;*/
+     left: 0px;
+}
+
+.sixty-percent {
+     /*width: 0%;*/
+     right: 0x;
+}
+
+.top-alignment {
+     vertical-align: top;
+}
+

@@ -56,7 +56,7 @@ public class ProductManagedBean implements Serializable {
     private SelectItem[] statusOption;
 
     private List<Product> productList;
-    
+
     private int updateProductId;
 
     /* this method is needed for sorting product list on productList page */
@@ -128,12 +128,16 @@ public class ProductManagedBean implements Serializable {
     }
 
     public String createProduct() {
+
+        int uId = Integer.valueOf(FacesContext.getCurrentInstance().
+                getExternalContext().getRequestParameterMap().get("userId"));
+
         Mapper mapper = new DozerBeanMapper();
         productBean.setStatusId(new Status(statusId));
-        productBean.setEmployeeId(new Employee(2));
+        productBean.setEmployeeId(new Employee(uId));
         Product product = mapper.map(productBean, Product.class);
         product.setId(updateProductId);
-        
+
         if (updateProductId > 0) {
             productService.updateProduct(product);
             FacesMessage msg = new FacesMessage("Product Backlog Updated", String.valueOf(updateProductId));
@@ -147,7 +151,7 @@ public class ProductManagedBean implements Serializable {
         return "productList";
     }
 
-    public void editProduct(RowEditEvent event) throws IOException {     
+    public void editProduct(RowEditEvent event) throws IOException {
         FacesMessage msg = new FacesMessage("Product Backlog Edited", ((Product) event.getObject()).getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
         Product tempProduct = (Product) event.getObject();
@@ -165,4 +169,5 @@ public class ProductManagedBean implements Serializable {
         FacesMessage msg = new FacesMessage("Edit Cancelled", ((Product) event.getObject()).getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
+
 }

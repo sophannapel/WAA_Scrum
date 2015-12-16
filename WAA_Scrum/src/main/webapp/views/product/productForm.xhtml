@@ -56,8 +56,9 @@ and open the template in the editor.
                         <p:commandButton value="Submit" action="#{productManagedBean.createProduct}" update="grid" />
 
                     </h:panelGrid>
-                    
+
                     <h:inputHidden value="#{productManagedBean.updateProductId}" />
+                    <input type="hidden" name="userId" value="#{employeeManagedBean.currentEmployeeBean.id}" />
 
                 </h:form>
             </ui:define>

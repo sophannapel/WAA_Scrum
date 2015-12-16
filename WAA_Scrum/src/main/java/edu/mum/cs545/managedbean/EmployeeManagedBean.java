@@ -19,9 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession;
 import org.primefaces.event.RowEditEvent;
-
 
 /**
  *
@@ -29,7 +27,8 @@ import org.primefaces.event.RowEditEvent;
  */
 @Named("employeeManagedBean")
 @SessionScoped
-public class EmployeeManagedBean implements Serializable{
+public class EmployeeManagedBean implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Inject
     transient EmployeeService employeeService;
@@ -37,9 +36,9 @@ public class EmployeeManagedBean implements Serializable{
     transient RoleService roleService;
     @Inject
     private Login login;
-    
-    private EmployeeBean currentEmployeeBean;
-    
+
+    private Employee currentEmployeeBean;
+
     @Inject
     private EmployeeBean newEmployeeBean;
 
@@ -53,7 +52,7 @@ public class EmployeeManagedBean implements Serializable{
     public void setEmployeeList(List<Employee> employeeList) {
         this.employeeList = employeeList;
     }
-    
+
     public Login getLogin() {
         return login;
     }
@@ -70,11 +69,11 @@ public class EmployeeManagedBean implements Serializable{
         this.employeeService = employeeService;
     }
 
-    public EmployeeBean getCurrentEmployeeBean() {
+    public Employee getCurrentEmployeeBean() {
         return currentEmployeeBean;
     }
 
-    public void setCurrentEmployeeBean(EmployeeBean currentEmployeeBean) {
+    public void setCurrentEmployeeBean(Employee currentEmployeeBean) {
         this.currentEmployeeBean = currentEmployeeBean;
     }
 
@@ -93,9 +92,7 @@ public class EmployeeManagedBean implements Serializable{
     public void setNewEmployeeBean(EmployeeBean newEmployeeBean) {
         this.newEmployeeBean = newEmployeeBean;
     }
-    
-    
-    
+
     private SelectItem[] roleOption;
 
     public SelectItem[] getRoleOption() {
@@ -110,47 +107,37 @@ public class EmployeeManagedBean implements Serializable{
     public void setRoleOption(SelectItem[] roleOption) {
         this.roleOption = roleOption;
     }
-    
-    
-    
-    public String authenticate(){
-        if(employeeService.isValidUser(login.getUsername(), login.getPassword())){
-            currentEmployeeBean = new EmployeeBean();
-            Employee e = employeeService.getEmployeeByUsername(login.getUsername());
-            currentEmployeeBean.setFirstname(e.getFirstname());
-            currentEmployeeBean.setLastname(e.getLastname());
-            currentEmployeeBean.setUsername(e.getUsername());
-            currentEmployeeBean.setPassword(e.getPassword());
-            currentEmployeeBean.setRoleId(e.getRoleId().getId());
-            currentEmployeeBean.setStatus(e.getStatus());
-            return "/views/employee/registration";
-//            return "/views/product/productForm?faces-redirect=true";
+
+    public String authenticate() {
+        if (employeeService.isValidUser(login.getUsername(), login.getPassword())) {
+            currentEmployeeBean = employeeService.getEmployeeByUsername(login.getUsername());
+            return "/views/index";
         }
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Invalid Username or password. Please try again!"));
+//        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Invalid Username or password. Please try again!"));
+FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid Username or password. Please try again!", null));
         return null;
     }
-    
-    public String logout(){
-//        ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
+
+    public String logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/views/login?faces-redirect=true";
     }
-    
-    public String createEmployee(){
-        
+
+    public String createEmployee() {
         employeeService.saveEmployeeDetails(newEmployeeBean);
-        return "/views/employee/employees?faces-redirect=true"; 
+        return "/views/employee/employees?faces-redirect=true";
     }
-    
+
     public void editEmployee(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Employee Details Edited", ((Employee)event.getObject()).getId().toString());
+        FacesMessage msg = new FacesMessage("Employee Details Edited", ((Employee) event.getObject()).getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
-    public void duplicateUsername(){
+
+    public void duplicateUsername() {
         Object employee = employeeService.getEmployeeByUsername(newEmployeeBean.getUsername());
-        if( employee != null){
+        if (employee != null) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Username already taken. Try another one!"));
         }
     }
+
 }
