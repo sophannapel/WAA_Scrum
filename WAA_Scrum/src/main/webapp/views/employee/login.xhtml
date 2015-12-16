@@ -6,30 +6,54 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>#{msgs.loginTitle}</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"/>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     </h:head>
     <h:body>
-        
-        <h:form>
-            <p:messages showDetail="true" autoUpdate="true" closable="true" />
-        </h:form>
-        
-        <h:form>
-            
-            <h:panelGrid id="grid" columns="3" cellpadding="6" cellspacing="5">
-                
-                <p:outputLabel for="username" value="#{msgs.loginUsername}: " />
-                <p:inputText id="username" value="#{employeeManagedBean.login.username}" />
-                <p:message for="username" />
+        <div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="text-center">Login</h1>
+                    </div>
+                    <div class="modal-body">
+                        <h:form>
+                            <p:messages showDetail="true" autoUpdate="true" closable="true" />
+                        </h:form>
 
-                <p:outputLabel for="password" value="#{msgs.loginPassword}: " />
-                <p:inputText id="password" value="#{employeeManagedBean.login.password}" />
-                <p:message for="password" />
-                
-                
-            </h:panelGrid>
-                
-            <p:commandButton value="Submit" action="#{employeeManagedBean.authenticate()}" update="grid"/>
-        </h:form>
+                        <h:form class="form  center-block">
+
+                            <h:panelGrid id="grid" columns="3" cellpadding="6" cellspacing="5">
+
+                                <p:outputLabel for="username" value="#{msgs.loginUsername}: " />
+                                <p:inputText id="username" value="#{employeeManagedBean.login.username}" />
+                                <p:message for="username" />
+                                
+                                <p:outputLabel for="password" value="#{msgs.loginPassword}: " />
+                                <p:password id="password" value="#{employeeManagedBean.login.password}" />
+                                <p:message for="password" />
+
+
+                            </h:panelGrid>
+
+                            <p:commandButton value="Sign In" action="#{employeeManagedBean.authenticate()}" update="grid"/>
+                        </h:form>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-md-12">
+                            <span>© 2015 Agile scrum - cs545 WAA</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </h:body>
 </html>
 

@@ -20,8 +20,7 @@ import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
+import org.primefaces.event.RowEditEvent;
 
 
 /**
@@ -44,6 +43,17 @@ public class EmployeeManagedBean implements Serializable{
     @Inject
     private EmployeeBean newEmployeeBean;
 
+    private List<Employee> employeeList;
+
+    public List<Employee> getEmployeeList() {
+        employeeList = employeeService.getlistEmployee();
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
+    
     public Login getLogin() {
         return login;
     }
@@ -122,13 +132,24 @@ public class EmployeeManagedBean implements Serializable{
     
     public String logout(){
         ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
-        return "index?faces-redirect=true";
+        return "login?faces-redirect=true";
     }
     
     public String createEmployee(){
         
         employeeService.saveEmployeeDetails(newEmployeeBean);
-        return "employees?faces-redirect=true";
-        
+        return "employees?faces-redirect=true"; 
+    }
+    
+    public void editEmployee(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Employee Details Edited", ((Employee)event.getObject()).getId().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+    public void duplicateUsername(){
+        Object employee = employeeService.getEmployeeByUsername(newEmployeeBean.getUsername());
+        if( employee != null){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Username already taken. Try another one!"));
+        }
     }
 }

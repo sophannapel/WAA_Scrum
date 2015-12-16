@@ -3,7 +3,7 @@ package edu.mum.cs545.bean;
 import java.io.Serializable;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class Login {
+public class Login implements Serializable{
 	
 	@NotEmpty(message = "Enter your username")
 	private String username;
