@@ -11,14 +11,17 @@
         <ui:composition> 
             AGILE Scrum
             <div style="position: absolute;
-    right: 0px;
-    width: 100px;
-    padding: 0px;">
-            <h:form>
-                <p:commandLink 
-                    value="#{msgs.logout}" 
-                    action="#{employeeManagedBean.logout()}"/>
-            </h:form>
+                 right: 0px;
+                 width: 100px;
+                 padding: 0px;">
+                
+                user name: #{employeeManagedBean.currentEmployeeBean.firstname} 
+                
+                <h:form>
+                    <p:commandLink 
+                        value="#{msgs.logout}" 
+                        action="#{employeeManagedBean.logout()}"/>
+                </h:form>
             </div>
         </ui:composition>
     </body>

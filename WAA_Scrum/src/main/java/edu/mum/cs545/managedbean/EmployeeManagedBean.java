@@ -123,7 +123,7 @@ public class EmployeeManagedBean implements Serializable{
             currentEmployeeBean.setPassword(e.getPassword());
             currentEmployeeBean.setRoleId(e.getRoleId().getId());
             currentEmployeeBean.setStatus(e.getStatus());
-            return "registration";
+            return "/views/employee/registration";
 //            return "/views/product/productForm?faces-redirect=true";
         }
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Invalid Username or password. Please try again!"));
@@ -131,14 +131,15 @@ public class EmployeeManagedBean implements Serializable{
     }
     
     public String logout(){
-        ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
-        return "login?faces-redirect=true";
+//        ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/views/login?faces-redirect=true";
     }
     
     public String createEmployee(){
         
         employeeService.saveEmployeeDetails(newEmployeeBean);
-        return "employees?faces-redirect=true"; 
+        return "/views/employee/employees?faces-redirect=true"; 
     }
     
     public void editEmployee(RowEditEvent event) {

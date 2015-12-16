@@ -19,7 +19,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>views/index.faces</welcome-file>
+        <welcome-file>views/login.faces</welcome-file>
     </welcome-file-list>
     
     <context-param>  
