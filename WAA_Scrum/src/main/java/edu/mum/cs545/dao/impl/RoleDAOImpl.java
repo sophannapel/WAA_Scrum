@@ -26,4 +26,14 @@ public class RoleDAOImpl implements RoleDAO {
         return role.get(0);
     }
 
+    @Override
+    @Transactional
+    public List<Role> roleList() {
+        List<Role> list = entityManager.createQuery("SELECT r FROM Role r").getResultList();
+        if (list.isEmpty()) {
+            return null;
+        } else {
+            return list;
+        }
+    }
 }
