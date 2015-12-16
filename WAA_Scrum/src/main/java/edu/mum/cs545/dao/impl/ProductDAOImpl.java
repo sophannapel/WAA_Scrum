@@ -68,12 +68,12 @@ public class ProductDAOImpl implements ProductDAO {
                 + " dueDate=:dueDate,"
                 + " name=:name, "
                 + " startDate=:startDate, "
-                + " status=:status WHERE id=:id");
+                + " statusId=:statusId WHERE id=:id");
         query.setParameter("description", product.getDescription());
         query.setParameter("dueDate", product.getDueDate());
         query.setParameter("name", product.getName());
         query.setParameter("startDate", product.getStartDate());
-//        query.setParameter("status", product.getStatus());
+        query.setParameter("statusId", product.getStatusId());
         query.setParameter("id", product.getId());
         query.executeUpdate();
     }
