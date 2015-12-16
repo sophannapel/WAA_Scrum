@@ -1,0 +1,134 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package edu.mum.cs545.managedbean;
+
+import edu.mum.cs545.bean.EmployeeBean;
+import edu.mum.cs545.bean.Login;
+import edu.mum.cs545.entity.Employee;
+import edu.mum.cs545.entity.Role;
+import edu.mum.cs545.service.EmployeeService;
+import edu.mum.cs545.service.RoleService;
+import java.io.Serializable;
+import java.util.List;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.servlet.http.HttpSession;
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
+
+
+/**
+ *
+ * @author Luwam
+ */
+@Named("employeeManagedBean")
+@SessionScoped
+public class EmployeeManagedBean implements Serializable{
+    private static final long serialVersionUID = 1L;
+    @Inject
+    transient EmployeeService employeeService;
+    @Inject
+    transient RoleService roleService;
+    @Inject
+    private Login login;
+    
+    private EmployeeBean currentEmployeeBean;
+    
+    @Inject
+    private EmployeeBean newEmployeeBean;
+
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
+    }
+
+    public EmployeeService getEmployeeService() {
+        return employeeService;
+    }
+
+    public void setEmployeeService(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
+
+    public EmployeeBean getCurrentEmployeeBean() {
+        return currentEmployeeBean;
+    }
+
+    public void setCurrentEmployeeBean(EmployeeBean currentEmployeeBean) {
+        this.currentEmployeeBean = currentEmployeeBean;
+    }
+
+    public RoleService getRoleService() {
+        return roleService;
+    }
+
+    public void setRoleService(RoleService roleService) {
+        this.roleService = roleService;
+    }
+
+    public EmployeeBean getNewEmployeeBean() {
+        return newEmployeeBean;
+    }
+
+    public void setNewEmployeeBean(EmployeeBean newEmployeeBean) {
+        this.newEmployeeBean = newEmployeeBean;
+    }
+    
+    
+    
+    private SelectItem[] roleOption;
+
+    public SelectItem[] getRoleOption() {
+        List<Role> list = roleService.roleList();
+        roleOption = new SelectItem[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            roleOption[i] = new SelectItem(list.get(i).getId(), list.get(i).getName());
+        }
+        return roleOption;
+    }
+
+    public void setRoleOption(SelectItem[] roleOption) {
+        this.roleOption = roleOption;
+    }
+    
+    
+    
+    public String authenticate(){
+        if(employeeService.isValidUser(login.getUsername(), login.getPassword())){
+            currentEmployeeBean = new EmployeeBean();
+            Employee e = employeeService.getEmployeeByUsername(login.getUsername());
+            currentEmployeeBean.setFirstname(e.getFirstname());
+            currentEmployeeBean.setLastname(e.getLastname());
+            currentEmployeeBean.setUsername(e.getUsername());
+            currentEmployeeBean.setPassword(e.getPassword());
+            currentEmployeeBean.setRoleId(e.getRoleId().getId());
+            currentEmployeeBean.setStatus(e.getStatus());
+            return "registration";
+//            return "/views/product/productForm?faces-redirect=true";
+        }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Invalid Username or password. Please try again!"));
+        return null;
+    }
+    
+    public String logout(){
+        ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(true)).invalidate();
+        return "index?faces-redirect=true";
+    }
+    
+    public String createEmployee(){
+        
+        employeeService.saveEmployeeDetails(newEmployeeBean);
+        return "employees?faces-redirect=true";
+        
+    }
+}

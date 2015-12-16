@@ -36,7 +36,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public boolean isValidUser(String username, String password) {
 
-		Query isvalid = entityManager.createQuery(" from Employee where username = :username and password = :password");
+		Query isvalid = entityManager.createQuery("from Employee e where e.username = :username and e.password = :password");
 		isvalid.setParameter("username", username);
 		isvalid.setParameter("password", password);
 		List<Employee> employeeList = isvalid.getResultList();
@@ -49,7 +49,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public Employee getEmployeeByUsername(String username) {
-		Query query = entityManager.createQuery(" from Employee where username = :username");
+		Query query = entityManager.createQuery("from Employee e where e.username = :username");
 		query.setParameter("username", username);
 		List<Employee> emp = query.getResultList();
 		if(emp.isEmpty())

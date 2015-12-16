@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"     
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>#{msgs.loginTitle}</title>
+    </h:head>
+    <h:body>
+        
+        <h:form>
+            <p:messages showDetail="true" autoUpdate="true" closable="true" />
+        </h:form>
+        
+        <h:form>
+            
+            <h:panelGrid id="grid" columns="3" cellpadding="6" cellspacing="5">
+                
+                <p:outputLabel for="username" value="#{msgs.loginUsername}: " />
+                <p:inputText id="username" value="#{employeeManagedBean.login.username}" />
+                <p:message for="username" />
+
+                <p:outputLabel for="password" value="#{msgs.loginPassword}: " />
+                <p:inputText id="password" value="#{employeeManagedBean.login.password}" />
+                <p:message for="password" />
+                
+                
+            </h:panelGrid>
+                
+            <p:commandButton value="Submit" action="#{employeeManagedBean.authenticate()}" update="grid"/>
+        </h:form>
+    </h:body>
+</html>
+
