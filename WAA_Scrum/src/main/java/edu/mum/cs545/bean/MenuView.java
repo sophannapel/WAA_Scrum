@@ -45,26 +45,42 @@ public class MenuView implements Serializable {
         model.addElement(firstSubmenu);
 
         //Second submenu
-        DefaultSubMenu secondSubmenu = new DefaultSubMenu("Dynamic Actions");
-
-        item = new DefaultMenuItem("Save");
-        item.setIcon("ui-icon-disk");
-        item.setCommand("#{menuView.save}");
-        item.setUpdate("messages");
-        secondSubmenu.addElement(item);
-
-        item = new DefaultMenuItem("Delete");
-        item.setIcon("ui-icon-close");
-        item.setCommand("#{menuView.delete}");
-        item.setAjax(false);
-        secondSubmenu.addElement(item);
-
-        item = new DefaultMenuItem("Redirect");
-        item.setIcon("ui-icon-search");
-        item.setCommand("#{menuView.redirect}");
-        secondSubmenu.addElement(item);
-
-        model.addElement(secondSubmenu);
+//        DefaultSubMenu secondSubmenu = new DefaultSubMenu("Dynamic Actions");
+//
+//        item = new DefaultMenuItem("Save");
+//        item.setIcon("ui-icon-disk");
+//        item.setCommand("#{menuView.save}");
+//        item.setUpdate("messages");
+//        secondSubmenu.addElement(item);
+//
+//        item = new DefaultMenuItem("Delete");
+//        item.setIcon("ui-icon-close");
+//        item.setCommand("#{menuView.delete}");
+//        item.setAjax(false);
+//        secondSubmenu.addElement(item);
+//
+//        item = new DefaultMenuItem("Redirect");
+//        item.setIcon("ui-icon-search");
+//        item.setCommand("#{menuView.redirect}");
+//        secondSubmenu.addElement(item);
+//
+//        model.addElement(secondSubmenu);
+        
+        //Employee management submenu
+        DefaultSubMenu employeeSubmenu = new DefaultSubMenu("Employee Management");
+        
+        item = new DefaultMenuItem("Add New Employee");
+        item.setUrl("/views/employee/registration.faces");
+        item.setIcon("ui-icon-plus");
+        employeeSubmenu.addElement(item);
+        
+        item = new DefaultMenuItem("List of Employees");
+        item.setUrl("/views/employee/employees.faces");
+        item.setIcon("ui-icon-lightbulb");
+        employeeSubmenu.addElement(item);
+        
+        model.addElement(employeeSubmenu);
+        
     }
 
     public MenuModel getModel() {

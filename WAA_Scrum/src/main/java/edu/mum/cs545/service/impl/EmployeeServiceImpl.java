@@ -3,6 +3,7 @@ package edu.mum.cs545.service.impl;
 import edu.mum.cs545.bean.EmployeeBean;
 import edu.mum.cs545.dao.EmployeeDAO;
 import edu.mum.cs545.entity.Employee;
+import edu.mum.cs545.entity.Role;
 import edu.mum.cs545.service.EmployeeService;
 import java.util.List;
 import javax.inject.Inject;
@@ -36,27 +37,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public boolean saveEmployeeDetails(EmployeeBean employeeBean) {
-        // TODO Auto-generated method stub
-
-        // Employee employee = new Employee();
         boolean issaved = false;
-        Mapper mapper = new DozerBeanMapper();
-        Employee employee = mapper.map(employeeBean, Employee.class);
-
-        // employee.setFirstname(employeeBean.getFirstname());
-        // employee.setLastname(employeeBean.getLastname());
-        // employee.setUsername(employeeBean.getUsername());
-        // employee.setPassword(employeeBean.getPassword());
-        if (employeeBean.getStatus().equals("on")) {
-            employee.setStatus("Active");
-        } else {
-            employee.setStatus("InActive");
-        }
-        // employee.setRoleId(employeeBean.getRoleId());
-
-        issaved = employeeDAO.saveEmployee(employee);
+        Employee e = new Employee();
+        e.setFirstname(employeeBean.getFirstname());
+        e.setLastname(employeeBean.getLastname());
+        e.setUsername(employeeBean.getUsername());
+        e.setPassword(employeeBean.getPassword());
+        e.setRoleId(new Role(employeeBean.getRoleId()));
+        e.setStatus(employeeBean.getStatus());
+        issaved = employeeDAO.saveEmployee(e);
         return issaved;
-
     }
 
     @Override
