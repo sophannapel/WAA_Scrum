@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"     
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/masterLayout.xhtml">
+            <ui:define name="title">
+                #{msgs.windowTitle} - #{msgs.employee}
+            </ui:define>
+
+            <ui:define name="formTitle">
+                #{msgs.employeeListTitle}
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form id="form">
+                    <p:growl id="msgs" showDetail="true"/>
+                    <p:dataTable value="#{employeeManagedBean.employeeList}" var="employee" 
+                                 editable="true" resizableColumns="true" style="margin-top:20px; margin-bottom: 20px" 
+                                 paginator="true" rows="13" paginatorPosition="bottom"
+                                 widgetVar="employeeTable" emptyMessage="No employee found with this criteria">
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Search: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('employeeTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:ajax event="rowEdit" listener="#{employeeManagedBean.editEmployee}" update=":form:msgs"/>
+                        <p:ajax event="rowEditCancel" update=":form:msgs"/>
+
+
+                        <p:column headerText="#{msgs.employeeId}" sortBy="#{employee.id}"  filterBy="#{employee.id}"  >
+                            <h:outputText value="#{employee.id}" />
+                        </p:column>
+
+                        <p:column headerText="#{msgs.employeeFistname}" sortBy="#{employee.firstname}"  filterBy="#{employee.firstname}" filterMatchMode="contains"  >
+                            <h:outputText value="#{employee.firstname}" />
+                        </p:column>
+
+                         <p:column headerText="#{msgs.employeeLastname}" sortBy="#{employee.lastname}"  filterBy="#{employee.lastname}" filterMatchMode="contains"  >
+                            <h:outputText value="#{employee.lastname}" />
+                        </p:column>
+
+                         <p:column headerText="#{msgs.employeeUsername}" sortBy="#{employee.username}"  filterBy="#{employee.username}" filterMatchMode="contains"  >
+                            <h:outputText value="#{employee.username}" />
+                        </p:column>
+
+                         <p:column headerText="#{msgs.employeeStatus}" sortBy="#{employee.status}"  filterBy="#{employee.status}" filterMatchMode="contains"  >
+                            <h:outputText value="#{employee.status}" />
+                        </p:column>
+
+                        <p:column style="width:25px">
+                            <p:rowEditor />
+                        </p:column>
+                        
+                    </p:dataTable>
+                </h:form>
+            </ui:define> 
+        </ui:composition>
+    </h:body>
+</html>

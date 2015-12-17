@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>IGNORED</title>
+    </head>
+    <body>
+        <ui:composition> 
+            <f:facet name="header">
+                <h:panelGrid columns="2" style="width: 100%" columnClasses="forty-percent top-alignment, sixty-percent top-alignment">
+                    <h:outputText value="AGILE Scrum"/>
+                    <h:panelGroup />
+
+                    <h:panelGroup>
+                        
+                        <div class="userInformation">
+                            <img src="../resources/images/user-alt-128.png" width="15" height="15" alt="user-alt-128"/>
+
+                            #{employeeManagedBean.currentEmployeeBean.roleId.name}
+                            : #{employeeManagedBean.currentEmployeeBean.firstname} #{employeeManagedBean.currentEmployeeBean.lastname}
+                        </div>
+                        
+                        <h:form>
+                            <div class="userInformation">
+                            <p:commandLink value="#{msgs.logout}" action="#{employeeManagedBean.logout()}"/>
+                            </div>
+                        </h:form>
+                        
+                    </h:panelGroup>
+                </h:panelGrid>
+
+            </f:facet>
+        </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <f:event type="preRenderView" listener="#{employeeManagedBean.checkLogin(event)}"/>
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>
+                    <ui:insert name="title" >
+                        #{msgs.windowTitle}
+                    </ui:insert>
+                </title>
+                <h:outputStylesheet library="css" name="style.css"  />
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" size="95" resizable="false">  
+                    <div class="headerDiv">                    
+                        <ui:insert name="header">                      
+                            <ui:include src="/templates/header.xhtml"/>
+                        </ui:insert>        
+                    </div>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="40">
+                    <div class="footerDiv">
+                        <ui:insert name="footer">
+                            <ui:include src="/templates/footer.xhtml"/>
+                        </ui:insert>
+                    </div>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="265" header="Menu" collapsible="true">
+                    <ui:insert name="sidebarLeft">
+                        <ui:include src="/templates/sidebarLeft.xhtml"/>
+                    </ui:insert>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <div class="contentDiv">
+                        <div class="formTitle">
+                            <ui:insert name="formTitle">
+
+                            </ui:insert>
+                        </div>
+
+                        <ui:insert name="content">
+
+                        </ui:insert>
+                    </div>
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+    </f:view>
+</html>
+

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"     
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/masterLayout.xhtml">
+            <ui:define name="title">
+                #{msgs.windowTitle} - #{msgs.product}
+            </ui:define>
+
+            <ui:define name="formTitle">
+                #{msgs.productFormTitle}
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:form>
+                    <p:growl id="msgs" showDetail="true"/>
+
+                    <h:panelGrid id="grid" columns="3" cellpadding="5" cellspacing="5">
+
+                        <p:outputLabel for="name" value="#{msgs.productName}: " />
+                        <p:inputText id="name" value="#{productManagedBean.productBean.name}" />
+                        <p:message for="name" />
+
+                        <p:outputLabel for="startDate" value="#{msgs.productStartDate}: " />
+                        <p:calendar id="startDate" value="#{productManagedBean.productBean.startDate}" />
+                        <p:message for="startDate" />
+
+                        <p:outputLabel for="dueDate" value="#{msgs.productDueDate}: " />
+                        <p:calendar id="dueDate" value="#{productManagedBean.productBean.dueDate}" />
+                        <p:message for="dueDate" />
+
+                        <p:outputLabel for="status" value="#{msgs.productStatus}" />
+                        <p:selectOneMenu id="status" value="#{productManagedBean.statusId}" >
+                            <f:selectItems value="#{productManagedBean.statusOption}" />
+                        </p:selectOneMenu>
+                        <p:message for="status" />
+
+                        <p:outputLabel for="description" value="#{msgs.productDescription}" />
+                        <p:inputTextarea id="description" value="#{productManagedBean.productBean.description}" rows="3"/>
+                        <p:message for="description" />
+
+                        <h:panelGroup />
+                        <p:commandButton value="Submit" action="#{productManagedBean.createProduct}" update="grid" />
+
+                    </h:panelGrid>
+
+                    <h:inputHidden value="#{productManagedBean.updateProductId}" />
+                    <input type="hidden" name="userId" value="#{employeeManagedBean.currentEmployeeBean.id}" />
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

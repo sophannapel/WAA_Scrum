@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"     
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>IGNORED</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/masterLayout.xhtml">
+            <ui:define name="title">
+                #{msgs.windowTitle} - #{msgs.registrationTitle}
+            </ui:define>
+
+            <ui:define name="formTitle">
+                #{msgs.registrationTitle}
+            </ui:define>
+            <ui:define name="content">
+                <h:form>
+                    <h:panelGrid id="grid" columns="3" cellpadding="5" cellspacing="5">
+
+                        <p:outputLabel for="firstname" value="#{msgs.registrationFirstname}: " />
+                        <p:inputText id="firstname" value="#{employeeBean.firstname}" />
+                        <p:message for="firstname" />
+
+                        <p:outputLabel for="lastname" value="#{msgs.registrationLastname}: " />
+                        <p:inputText id="lastname" value="#{employeeBean.lastname}" />
+                        <p:message for="lastname" />
+
+                        <p:outputLabel for="username" value="#{msgs.registrationUsername}: " />
+                        <p:inputText id="username" value="#{employeeBean.username}" >
+                            <p:ajax event="blur" listener="#{employeeManagedBean.duplicateUsername}" update="username"/>
+                        </p:inputText>
+                        <p:message for="username" />
+
+                        <p:outputLabel for="password" value="#{msgs.registrationPassword}: " />
+                        <p:password id="password" value="#{employeeBean.password}" match="confirmPassword"/>
+                        <p:message for="password" />
+
+                        <p:outputLabel for="confirmPassword" value="#{msgs.registrationConfirmPassword}: " />
+                        <p:password id="confirmPassword" value="#{employeeBean.confirmPassword}" />
+                        <p:message for="confirmPassword" />
+
+                        <p:outputLabel for="role" value="#{msgs.registrationRole}" />
+                        <p:selectOneMenu id="role" value="#{employeeBean.roleId}" >
+                            <f:selectItems value="#{employeeManagedBean.roleOption}" />
+                        </p:selectOneMenu>
+                        <p:message for="role" />
+
+                        <p:outputLabel for="status" value="#{msgs.registrationStatus}" />
+                        <p:selectOneMenu id="status" value="#{employeeBean.status}" >
+                            <f:selectItem itemLabel="Active" itemValue="Active" />
+                            <f:selectItem itemLabel="InActive" itemValue="InActive"/>
+                        </p:selectOneMenu>
+                        <p:message for="status" />
+
+                    </h:panelGrid>
+                    <p:commandButton value="Submit" action="#{employeeManagedBean.createEmployee()}" update="grid" />
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
