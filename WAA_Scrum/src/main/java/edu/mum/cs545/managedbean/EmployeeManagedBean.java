@@ -14,12 +14,15 @@ import edu.mum.cs545.service.RoleService;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.RowEditEvent;
+
 
 /**
  *
@@ -43,6 +46,8 @@ public class EmployeeManagedBean implements Serializable {
     private EmployeeBean newEmployeeBean;
 
     private List<Employee> employeeList;
+
+    private boolean isLogin = false;
 
     public List<Employee> getEmployeeList() {
         employeeList = employeeService.getlistEmployee();
@@ -111,10 +116,10 @@ public class EmployeeManagedBean implements Serializable {
     public String authenticate() {
         if (employeeService.isValidUser(login.getUsername(), login.getPassword())) {
             currentEmployeeBean = employeeService.getEmployeeByUsername(login.getUsername());
+            isLogin = true;
             return "/views/index";
         }
-//        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Invalid Username or password. Please try again!"));
-FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid Username or password. Please try again!", null));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid Username or password. Please try again!", null));
         return null;
     }
 
@@ -139,5 +144,13 @@ FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Username already taken. Try another one!"));
         }
     }
-
+    
+    public void checkLogin(ComponentSystemEvent event) {
+        if (!isLogin) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            ConfigurableNavigationHandler handler = (ConfigurableNavigationHandler)
+                    context.getApplication().getNavigationHandler();
+            handler.performNavigation("/views/login");
+        }
+    }
 }
