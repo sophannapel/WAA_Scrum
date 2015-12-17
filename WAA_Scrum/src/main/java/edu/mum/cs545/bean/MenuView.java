@@ -104,8 +104,9 @@ public class MenuView implements Serializable {
 
         listResources.add(new Resources(1, "Product Management", "/views/product/productList.faces", "ui-icon-lightbulb", "ui-icon-lightbulb", listSubMenus));
         listSubMenus = new ArrayList<>();
-        listSubMenus.add(new Resources(1, "Add New Release", "#", "ui-icon-lightbulb", "ui-icon-lightbulb", null));
         listSubMenus.add(new Resources(1, "List of Releases", "#", "ui-icon-lightbulb", "ui-icon-lightbulb", null));
+        listSubMenus.add(new Resources(1, "Add New Release", "#", "ui-icon-lightbulb", "ui-icon-lightbulb", null));
+        
 
         listResources.add(new Resources(3, "Release Management", "/views/employee/registration.faces", "ui-icon-plus", "ui-icon-plus", listSubMenus));
 
